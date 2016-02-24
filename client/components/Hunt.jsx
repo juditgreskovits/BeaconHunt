@@ -93,8 +93,7 @@ Hunt = React.createClass({
               :
                 ""
               }
-
-
+              
             </div>
           }
         </div>

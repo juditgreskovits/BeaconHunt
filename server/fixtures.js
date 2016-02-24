@@ -65,4 +65,164 @@ Meteor.startup(function () {
       Beacons.insert(beacon);
     });
   }
+
+  if(Questions.find().count() === 0) {
+    var qa = [
+      {
+        question: "How many large islands is in Canary Islands?",
+        options: [
+          {
+            correct: false,
+            answer: 6
+          },
+          {
+            correct: true;
+            answer: 7
+          },
+          {
+            correct: false;
+            answer: 8
+          }
+        ]
+      },
+      {
+        question: "The capital city of Las Palmas de Gran Canaria was founded on year?",
+        options: [
+          {
+            correct: true,
+            answer: 1478
+          },
+          {
+            correct: false;
+            answer: 1587
+          },
+          {
+            correct: false;
+            answer: 1758
+          }
+        ]
+      },
+      {
+        question: "What is the original name of Las Palmas de Gran Canaria?",
+        options: [
+          {
+            correct: true,
+            answer: "Real de Las Palmas"
+          },
+          {
+            correct: false;
+            answer: "Fake de Las Palmas"
+          },
+          {
+            correct: false;
+            answer: "Los Palmas"
+          }
+        ]
+      },
+      {
+        question: "What year Christopher Columbus anchored in the Port of Las Palmas on his first trip to the Americas?",
+        options: [
+          {
+            correct: true,
+            answer: 1492
+          },
+          {
+            correct: false;
+            answer: 1497
+          },
+          {
+            correct: false;
+            answer: 1507
+          }
+        ]
+      },
+      {
+        question: "Gran Canaria's surface area is in km&sup2;?",
+        options: [
+          {
+            correct: true,
+            answer: 1560
+          },
+          {
+            correct: false;
+            answer: 1650
+          },
+          {
+            correct: false;
+            answer: 1065
+          }
+        ]
+      },
+      {
+        question: "Gran Canaria's maximum elevation is meters?",
+        options: [
+          {
+            correct: true,
+            answer: 1949
+          },
+          {
+            correct: false;
+            answer: 1494
+          },
+          {
+            correct: false;
+            answer: 1994
+          }
+        ]
+      },
+      {
+        question: "Gran Canaria's highest point is called?",
+        options: [
+          {
+            correct: true,
+            answer: "Pico de Las Nieves"
+          },
+          {
+            correct: false;
+            answer: "Pico de Las Papas"
+          },
+          {
+            correct: false;
+            answer: "Pico de Las Mojos"
+          }
+        ]
+      },
+      {
+        question: "What is approximately diameter of Gran Canarias in kilometers?",
+        options: [
+          {
+            correct: true,
+            answer: 50
+          },
+          {
+            correct: false;
+            answer: 54
+          },
+          {
+            correct: false;
+            answer: 47
+          }
+        ]
+      },
+      {
+        question: "How long way is from Gran Canaria's off the northwestern coast of Africa in kilometers?",
+        options: [
+          {
+            correct: true,
+            answer: 150
+          },
+          {
+            correct: false;
+            answer: 120
+          },
+          {
+            correct: false;
+            answer: 180
+          }
+        ]
+      }
+    ];
+  }
+
+
 });

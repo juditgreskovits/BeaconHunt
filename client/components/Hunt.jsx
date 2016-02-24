@@ -2,9 +2,6 @@ Hunt = React.createClass({
 
   getInitialState() {
     return {
-      proximityBeacon1: this.props.beacons[0].proximity, 
-      proximityBeacon2: this.props.beacons[1].proximity, 
-      proximityBeacon3: this.props.beacons[2].proximity,
       locked1:          true,
       locked2:          true,
       locked3:          true,
@@ -20,7 +17,7 @@ Hunt = React.createClass({
 
   componentDidMount() {
     // counts down the time - every 1 second decreases value of timeLeft
-
+    console.log(this.props);
     setInterval( () => {
       if ( this.state.timeLeft > 0 ) {
         this.setState( { timeLeft: this.state.timeLeft - 1000 } );
@@ -36,15 +33,15 @@ Hunt = React.createClass({
   },
 
   indicatorColor( proximity)  {
-    if ( proximity > 0 && proximity < 0.5 ) {
+    if ( proximity === 5 ) {
       return '#bfff00';
-    } else if ( proximity >= 0.5 && proximity < 1 ) {
+    } else if ( proximity === 4 ) {
       return '#ffff00';
-    } else if ( proximity >= 1 && proximity < 2 ) {
+    } else if ( proximity === 3) {
       return '#ffbf00';
-    } else if ( proximity >= 2 && proximity < 5 ) {
+    } else if ( proximity === 2) {
       return '#ff8000';
-    } else if ( proximity >= 5 ) {
+    } else if ( proximity === 1 ) {
       return '#ff4000';
     }
   },
@@ -55,20 +52,20 @@ Hunt = React.createClass({
         lockClass3 = this.state.locked3 ? "fa fa-lock" : "fa fa-unlock";
 
     let indicator1Style = {
-      background: this.indicatorColor( this.state.proximityBeacon1 )
+      background: this.indicatorColor( this.props.beacons[0].proximity )
     }
 
     let indicator2Style = {
-      background: this.indicatorColor( this.state.proximityBeacon2 )
+      background: this.indicatorColor( this.props.beacons[1].proximity )
     }
 
     let indicator3Style = {
-      background: this.indicatorColor( this.state.proximityBeacon3 )
+      background: this.indicatorColor( this.props.beacons[2].proximity )
     }
 
     return (
       <div>
-      
+
         <div className="container hunt">
           { this.state.allUnlocked ?
             <Winner points={ this.state.points }/>
@@ -88,9 +85,9 @@ Hunt = React.createClass({
                 </div>
               </div>
 
-              { ( this.state.proximityBeacon1 < 0.1 && this.state.locked1 ) ||
-                ( this.state.proximityBeacon2 < 0.1 && this.state.locked2 && !this.state.locked1 ) ||
-                ( this.state.proximityBeacon3 < 0.1 && this.state.locked3 && !this.state.locked1 && !this.state.locked2 ) ?
+              { ( this.props.beacons[0].proximity < 0.1 && this.state.locked1 ) ||
+                ( this.props.beacons[1].proximity < 0.1 && this.state.locked2 && !this.state.locked1 ) ||
+                ( this.props.beacons[2].proximity < 0.1 && this.state.locked3 && !this.state.locked1 && !this.state.locked2 ) ?
 
                 <Puzzles />
               :

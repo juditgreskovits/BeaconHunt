@@ -18,3 +18,7 @@ Meteor.publish('fakebeacons', function() {
     fields: FakeBeacons.publicFields
   });
 });
+
+Meteor.publish('questions', function(){
+  return Questions.find({});
+});

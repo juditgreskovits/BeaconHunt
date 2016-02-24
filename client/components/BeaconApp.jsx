@@ -44,12 +44,15 @@ BeaconApp = React.createClass({
       });
 
       if(beaconIndices.length) {
-        _.each(beaconIndices, function(index){
+        let i = 0;
+        while(i < beaconIndices.length) {
+          const index = beaconIndices[i++];
+          const proximity = this.getProximity(index, 0);
           beacons.push({
-            proximity: 0,
+            proximity: proximity,
             beaconIndex: index
           });
-        });
+        }
       }
 
       beacons = _.sortBy(beacons, function(beacon){ return beacon.beaconIndex; });
@@ -74,7 +77,8 @@ BeaconApp = React.createClass({
 
     if(this.props.proximities) {
       const proximities = this.props.proximities.split('|');
-      return Number([beaconIndex-1]);
+      const index = Number([beaconIndex-1]);
+      return Number(proximities[index]);
     }
 
     switch (proximity) {

@@ -74,7 +74,7 @@ BeaconApp = React.createClass({
 
     if(this.props.proximities) {
       const proximities = this.props.proximities.split('|');
-      return proximities[beaconIndex-1];
+      return Number([beaconIndex-1]);
     }
 
     switch (proximity) {

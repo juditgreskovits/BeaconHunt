@@ -113,9 +113,7 @@ BeaconApp = React.createClass({
     const beacons = this.data.beacons;
 
     return (
-      <div className="container">
-        <Hunt beacons={beacons} />
-      </div>
+      <Hunt beacons={beacons} />
     );
   }
 });

@@ -76,11 +76,11 @@ Meteor.startup(function () {
             answer: 6
           },
           {
-            correct: true;
+            correct: true,
             answer: 7
           },
           {
-            correct: false;
+            correct: false,
             answer: 8
           }
         ]
@@ -93,11 +93,11 @@ Meteor.startup(function () {
             answer: 1478
           },
           {
-            correct: false;
+            correct: false,
             answer: 1587
           },
           {
-            correct: false;
+            correct: false,
             answer: 1758
           }
         ]
@@ -110,11 +110,11 @@ Meteor.startup(function () {
             answer: "Real de Las Palmas"
           },
           {
-            correct: false;
+            correct: false,
             answer: "Fake de Las Palmas"
           },
           {
-            correct: false;
+            correct: false,
             answer: "Los Palmas"
           }
         ]
@@ -127,11 +127,11 @@ Meteor.startup(function () {
             answer: 1492
           },
           {
-            correct: false;
+            correct: false,
             answer: 1497
           },
           {
-            correct: false;
+            correct: false,
             answer: 1507
           }
         ]
@@ -144,11 +144,11 @@ Meteor.startup(function () {
             answer: 1560
           },
           {
-            correct: false;
+            correct: false,
             answer: 1650
           },
           {
-            correct: false;
+            correct: false,
             answer: 1065
           }
         ]
@@ -161,11 +161,11 @@ Meteor.startup(function () {
             answer: 1949
           },
           {
-            correct: false;
+            correct: false,
             answer: 1494
           },
           {
-            correct: false;
+            correct: false,
             answer: 1994
           }
         ]
@@ -178,11 +178,11 @@ Meteor.startup(function () {
             answer: "Pico de Las Nieves"
           },
           {
-            correct: false;
+            correct: false,
             answer: "Pico de Las Papas"
           },
           {
-            correct: false;
+            correct: false,
             answer: "Pico de Las Mojos"
           }
         ]
@@ -195,11 +195,11 @@ Meteor.startup(function () {
             answer: 50
           },
           {
-            correct: false;
+            correct: false,
             answer: 54
           },
           {
-            correct: false;
+            correct: false,
             answer: 47
           }
         ]
@@ -212,11 +212,11 @@ Meteor.startup(function () {
             answer: 150
           },
           {
-            correct: false;
+            correct: false,
             answer: 120
           },
           {
-            correct: false;
+            correct: false,
             answer: 180
           }
         ]

@@ -15,7 +15,6 @@ Header = React.createClass({
             <div className="navbar-header">
               <a className="navbar-brand" href="/">Treasure Hunt</a>
             </div>
-
           </div>
         </div>
       </nav>

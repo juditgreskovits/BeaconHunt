@@ -20,22 +20,17 @@
 }
 
 .indicators {
-//  display: inline-block;
-  width: 90%;
   margin: 0 auto;
-//  padding: 20px 0;
-  div {
-    text-align: center;
-    margin: 0 auto 0 -3%;
-    padding: 0;
-  }
 
+  ul {
+    display: inline-block;
+    margin: 0 auto;
+  }
 }
 
 .indicator {
   display: block;
   float: left;
-//  margin-right: 30px;
   height: 50px;
   width: 50px;
   border-radius: 50%;
@@ -43,8 +38,6 @@
   text-align: center;
   line-height: 50px;
 }
-
-
 
 .indicator-1, .indicator-2, .indicator-3,  {
   background: #555;

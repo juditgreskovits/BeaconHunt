@@ -1,4 +1,14 @@
 Puzzles = React.createClass({
+
+  // props: timeLeft
+  //        deductSecond
+  //        resetTimer
+
+  componentDidMount() {
+    this.props.resetTimer();
+    setInterval( this.props.deductSecond, 1000 );
+  },
+
   render() {
     return (
       <div className="row puzzles">
@@ -6,7 +16,7 @@ Puzzles = React.createClass({
 
           <div className="row questions">
             <div className="col-xs-12">
-              <h1>Questions</h1>
+              <h1>Question - <span>Time Left: { this.props.timeLeft/1000 } seconds </span></h1>
               <p>Bla bla bla?</p>
             </div>
           </div>
@@ -14,22 +24,10 @@ Puzzles = React.createClass({
 
           <div className="row answers">
             <div className="col-xs-12">
-              <h1>Anwers</h1>
-              <form role="form" onSubmit={ this.submitAnswer }>
-
-                <div className="form-group">
-                  <input
-                    type="text"
-                    className="form-control"
-                    ref="answer"
-                    placeholder="Answer"
-                    onChange={ this.onNameChange }
-                  />
-                </div>
-
-                <button type="submit" id="submitButton" className="btn btn-hunt">Go!</button>
-
-              </form>
+              <h1>Answers</h1>
+                <AnswerButton answer={1} correctAnswer={2} />
+                <AnswerButton answer={2} correctAnswer={2}/>
+                <AnswerButton answer={3} correctAnswer={2}/>
             </div>
           </div>
 

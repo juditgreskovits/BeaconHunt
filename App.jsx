@@ -3,7 +3,6 @@ Meteor.startup(function(){
 
   Meteor.call('createGame', (error, result) => {
     const gameId = result;
-    localStorage.setItem('BeaconHuntGame', gameId);
   });
 
   if (Meteor.isCordova) {

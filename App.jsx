@@ -11,6 +11,7 @@ App = React.createClass({
 
     return (
       <div>
+        <Header />
         { this.props.content }
       </div>
     )

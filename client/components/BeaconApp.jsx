@@ -1,4 +1,4 @@
-Hunt = React.createClass({
+BeaconApp = React.createClass({
 
   mixins: [ReactMeteorData],
 
@@ -89,7 +89,7 @@ Hunt = React.createClass({
 
     return (
       <div className="container">
-        <Questions beacons={beacons} />
+        <Hunt beacons={beacons} />
       </div>
     );
   }

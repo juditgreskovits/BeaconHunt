@@ -1,11 +1,11 @@
 
-FlowRouter.notFound = {
+/*FlowRouter.notFound = {
   action() {
     ReactLayout.render(App, {
       content:  <NotFound />
     });
   }
-};
+};*/
 
 FlowRouter.route('/',{
   name: 'Start',
@@ -20,16 +20,16 @@ FlowRouter.route('/hunt',{
   name: 'Hunt',
   action(params) {
     ReactLayout.render(App, {
-      content:  <Hunt gameId={params.gameId}/>
+      content:  <BeaconApp/>
     });
   }
 });
 
 FlowRouter.route('/dev/:proximities/',{
-  name: 'Hunt',
+  name: 'Dev',
   action(params) {
     ReactLayout.render(App, {
-      content:  <Hunt proximities={params.proximities}/>
+      content:  <BeaconApp proximities={params.proximities}/>
     });
   }
 });

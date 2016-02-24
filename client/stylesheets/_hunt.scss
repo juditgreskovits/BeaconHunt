@@ -1,0 +1,92 @@
+[data-reactid=".0"], [data-reactid=".0.1"] {
+  height: 100% !important;
+}
+
+.hunt {
+  color: white;
+  height: 100% !important;
+  background: url("/images/home.png")  no-repeat center center fixed;
+  background-size: cover;
+}
+
+.hunt-wrapper {
+  background: $blue;
+  opacity: .9;
+  color: white;
+  margin: 5% 10px;
+  padding: 20px;
+  height: 89%;
+}
+
+.indicators {
+//  display: inline-block;
+  width: 90%;
+  margin: 0 auto;
+//  padding: 20px 0;
+  div {
+    text-align: center;
+    margin: 0 auto 0 -3%;
+    padding: 0;
+  }
+
+}
+
+.indicator {
+  display: block;
+  float: left;
+//  margin-right: 30px;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  font-size: 16pt;
+  text-align: center;
+  line-height: 50px;
+}
+
+
+
+.indicator-1, .indicator-2, .indicator-3,  {
+  background: #555;
+}
+
+.indicator-1 {
+  margin-right: 20px;
+}
+
+.indicator-2{
+  margin-right: 20px;
+}
+
+.indicator-3 {
+//  margin-right: 0;
+
+}
+
+#submitButton {
+  display: inline-block;
+  margin: 0 auto;
+}
+
+.winner {
+  background: $blue;
+  text-align: center;
+  height: 1000px;
+
+  img {
+    width: 300px;
+    padding-top: 20px;
+    margin: 0 auto;
+  }
+
+  h1 {
+    animation-name: winner-header;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+  }
+
+  @keyframes winner-header {
+    0%   {font-size: 2rem;}
+    50% {font-size: 4rem;}
+    100% {font-size: 2rem;}
+  }
+}

@@ -28,3 +28,7 @@ materialize:materialize@=0.97.0
 mbanting:reactive-ibeacons
 kadira:flow-router
 kadira:react-layout
+
+twbs:bootstrap
+fourseven:scss
+fortawesome:fontawesome

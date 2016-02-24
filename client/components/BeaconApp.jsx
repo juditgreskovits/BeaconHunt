@@ -23,10 +23,15 @@ BeaconApp = React.createClass({
       beaconsDetected = FakeBeacons.findOne({});
     }
 
+    console.log('beaconsDetected = ', beaconsDetected);
+
     if(beaconsDetected && !loading) {
+      let beaconIndices = [1, 2, 3];
       beacons = beaconsDetected.beacons.map((beacon) => {
         const beaconData = Beacons.findOne({ major: beacon.major, minor: beacon.minor });
         const proximity = this.getProximity(beaconData.beaconIndex, beacon.proximity);
+        const beaconIndex = beaconData.beaconIndex;
+        this.removeFromArrayByValue(beaconIndices, beaconIndex);
         return {
           proximity: proximity,
           accuracy: beacon.accuracy,
@@ -37,11 +42,31 @@ BeaconApp = React.createClass({
           beaconColour: beaconData.beaconColour
         }
       });
+
+      if(beaconIndices.length) {
+        _.each(beaconIndices, function(index){
+          beacons.push({
+            proximity: 0,
+            beaconIndex: index
+          });
+        });
+      }
+
+      beacons = _.sortBy(beacons, function(beacon){ return beacon.beaconIndex; });
     }
+
+    console.log('beacons = ', beacons);
 
     return {
       beacons: beacons,
       loading: loading
+    }
+  },
+
+  removeFromArrayByValue(array, value) {
+    var index = array.indexOf(value);
+    if (index >= 0) {
+      array.splice( index, 1 );
     }
   },
 

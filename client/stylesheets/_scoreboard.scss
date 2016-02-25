@@ -1,0 +1,32 @@
+.scoreWrapper {
+  background:#DDD;
+  display:block;
+  padding: 10px;
+  height: 20px;
+  width:auto;
+}
+
+.scoreCntents, .scoreContents .scoreInner {
+  display:inline-block;
+}
+
+.scoreContents {
+  white-space:nowrap;
+  margin-left: -1em;
+  padding-left: 1em;
+}
+
+.scoreContents .scoreInner {
+  display: block;
+  float: left;
+  clear: both;
+  padding: 2px;
+  color: white;
+  background:#c3c;
+  margin: 1px;
+  overflow:hidden;
+  -webkit-transition: width 1s ease-in-out;
+  -moz-transition: width 1s ease-in-out;
+  -o-transition: width 1s ease-in-out;
+  transition: width 1s ease-in-out;
+}

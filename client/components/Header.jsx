@@ -25,7 +25,7 @@ Header = React.createClass({
             gameScore = this.data.currentGame.score;
         }
 
-        console.log("header" + this.gameId);
+
         return (
             <nav className="navbar navbar-default">
                 <div className="container-fluid">

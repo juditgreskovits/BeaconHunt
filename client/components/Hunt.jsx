@@ -37,7 +37,7 @@ Hunt = React.createClass({
   },
 
   increaseQuestionNumber() {
-    this.setState( { questionNumber: this.state.questionNumber } );
+    this.setState( { questionNumber: this.state.questionNumber + 1 } );
   },
 
   shuffleArray(a) {
@@ -55,6 +55,7 @@ Hunt = React.createClass({
   componentDidMount() {
     // counts down the time - every 1 second decreases value of timeLeft
     console.log(this.props);
+    this.setState({questions : this.shuffleArray(this.data.questions)});
     setInterval( () => {
       if ( this.state.timeLeft > 0 ) {
         this.setState( { timeLeft: this.state.timeLeft - 1000 } );
@@ -62,11 +63,16 @@ Hunt = React.createClass({
     }, 1000);
   },
 
-  submitAnswer(e) {
-    e.preventDefault();
-    this.setState({ answer: this.refs.answer })
+  goodAnswer() {
+    console.log("good answer");
+    this.increaseQuestionNumber();
+    console.log(this.state.questionNumber);
+  },
 
-    // Logic what happens when user answers
+  badAnswer() {
+    console.log("bad answer")
+    this.increaseQuestionNumber();
+    console.log(this.state.questionNumber);
   },
 
   resetTimer() {
@@ -96,12 +102,14 @@ Hunt = React.createClass({
   renderPuzzles() {
     return (
       <Puzzles
-        questions={ this.shuffleArray(this.data.questions) }
+        questions={ this.state.questions }
         timeLeft={ this.state.timeLeft }
         deductSecond={ this.deductSecond }
         resetTimer={ this.resetTimer }
         increaseQuestionNumber={ this.increaseQuestionNumber }
         questionNumber={ this.state.questionNumber}
+        goodAnswer={ this.goodAnswer }
+        badAnswer={ this.badAnswer }
       />
     )
   },

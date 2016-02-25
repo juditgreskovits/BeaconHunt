@@ -9,7 +9,7 @@ AnswerButton = React.createClass({
     return (
       <div className="row answer-button">
         <div className="col-xs-12">
-          <button className="btn btn-hunt" onClick={ this.checkAnswer }>
+          <button className="btn btn-hunt btn-answer" onClick={ this.checkAnswer }>
             { this.props.letter } 
           </button>
           <h3>{ this.props.option.answer }</h3>

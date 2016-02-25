@@ -13,7 +13,8 @@ Hunt = React.createClass({
       points: 0,
       questionNumber: 0,  // max 8
       questionsTried: 0,  // 1,2 or 3
-      endOfGame: false
+      endOfGame: false,
+      intervalId: 0
     }
   },
 
@@ -68,9 +69,10 @@ Hunt = React.createClass({
   },
 
   componentDidMount() {
+
     // counts down the time - every 1 second decreases value of timeLeft
     // this.setState({questions : this.shuffleArray(this.data.questions)});
-    setInterval( () => {
+    let intervalId = setInterval( () => {
       if ( this.state.timeLeft > 0 ) {
         this.setState( { timeLeft: this.state.timeLeft - 1000 } );
       } else {
@@ -78,6 +80,11 @@ Hunt = React.createClass({
       }
     }, 1000);
   },
+
+  componentWillUnmount() {
+    clearInterval(this.state.intervalId);
+  },
+
 
   resetTimer() {
     this.setState( { timeLeft: 10*1000 } );
@@ -152,14 +159,16 @@ Hunt = React.createClass({
     console.log('this.data.questions = ' + this.data.questions);
     if(doRender) {
       return (
-        <div>
-          <span>Time Left: { this.state.timeLeft/1000 } seconds </span>
-          <Puzzles
-            question={ this.data.questions[this.state.questionNumber] }
-            checkAnswer={ this.checkAnswer }
-            questionsTried={ this.state.questionsTried }
-            beaconIndex={ this.state.beaconIndex }
-          />
+        <div className="row seconds-left">
+          <div className="col-xs-12">
+            <h3>Time Left: { this.state.timeLeft/1000 } seconds </h3>
+            <Puzzles
+              question={ this.data.questions[this.state.questionNumber] }
+              checkAnswer={ this.checkAnswer }
+              questionsTried={ this.state.questionsTried }
+              beaconIndex={ this.state.beaconIndex }
+            />
+          </div>
         </div>
       )
     }

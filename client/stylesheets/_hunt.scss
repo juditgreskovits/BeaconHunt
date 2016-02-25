@@ -56,22 +56,47 @@
 
 }
 
-.answers h3 {
-  display: inline-block;
-  margin-left: 40px;
+.answers {
+  h3 {
+    display: inline-block;
+    margin-left: 20px;
+    font-size: 1.25rem;
+  }
 }
 
 .answer-button {
   margin-bottom: 20px;
 }
+.questions {
+  h1 {
+    font-size: 1.25rem;
+  }
+  h3 {
+    font-size: 1.25rem;
+    margin: 0 0 10px 0;
+    padding: 0;
+  }
+}
+
+.btn-answer {
+  width: 35px;
+  height: 35px;
+  padding: 5px;
+}
 
 .questions-tried span{
-  font-size: 2.5rem;
+  font-size: 1.25rem;
 }
 
 #submitButton {
   display: inline-block;
   margin: 0 auto;
+}
+
+.seconds-left {
+  h3 {
+    font-size: 1.25rem;
+  }
 }
 
 .winner {

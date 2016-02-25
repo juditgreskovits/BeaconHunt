@@ -1,4 +1,12 @@
 Hunt = React.createClass({
+  mixins: [ReactMeteorData],
+
+  getMeteorData() {
+    return {
+      questions: Meteor.call('getQuestions')
+
+    }
+  },
 
   getInitialState() {
     return {
@@ -43,6 +51,17 @@ Hunt = React.createClass({
     return a;
   },
 
+
+  componentDidMount() {
+    // counts down the time - every 1 second decreases value of timeLeft
+    console.log(this.props);
+    setInterval( () => {
+      if ( this.state.timeLeft > 0 ) {
+        this.setState( { timeLeft: this.state.timeLeft - 1000 } );
+      }
+    }, 1000);
+  },
+
   submitAnswer(e) {
     e.preventDefault();
     this.setState({ answer: this.refs.answer })
@@ -76,10 +95,10 @@ Hunt = React.createClass({
 
   renderPuzzles() {
     return (
-      <Puzzles 
-        questions={ this.shuffleArray(this.data.questions) } 
-        timeLeft={ this.state.timeLeft } 
-        deductSecond={ this.deductSecond } 
+      <Puzzles
+        questions={ this.shuffleArray(this.data.questions) }
+        timeLeft={ this.state.timeLeft }
+        deductSecond={ this.deductSecond }
         resetTimer={ this.resetTimer }
         increaseQuestionNumber={ this.increaseQuestionNumber }
         questionNumber={ this.state.questionNumber}
@@ -91,7 +110,7 @@ Hunt = React.createClass({
     let lockClasses = [
       this.state.locked1 ? "fa fa-lock" : "fa fa-unlock",
       this.state.locked2 ? "fa fa-lock" : "fa fa-unlock",
-      this.state.locked3 ? "fa fa-lock" : "fa fa-unlock",   
+      this.state.locked3 ? "fa fa-lock" : "fa fa-unlock",
     ]
 
     let indicatorsStyles = [
@@ -106,13 +125,13 @@ Hunt = React.createClass({
         <div className="container hunt">
           { this.state.allUnlocked ?
             <Winner points={ this.state.points }/>
-          : 
+          :
             <div className="hunt-wrapper">
 
               <div className="row indicators">
                 <div className="col-xs-12">
 
-                  <Indicators 
+                  <Indicators
                     indicatorStyles={ indicatorsStyles }
                     lockClasses={lockClasses}
                   />
@@ -129,7 +148,7 @@ Hunt = React.createClass({
               :
                 ""
               }
-              
+
             </div>
           }
         </div>

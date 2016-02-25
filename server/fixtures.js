@@ -58,7 +58,7 @@ Meteor.startup(function () {
         beaconColour: "pink",
         major: 18420,
         minor: 11183
-      },
+      }
     ];
 
     _.each(beacons, function (beacon) {

@@ -2,6 +2,7 @@ var reactiveBeaconRegion;
 
 Meteor.startup(function(){
     if (Meteor.isCordova) {
+        navigator.splashscreen.hide();
         reactiveBeaconRegion = new ReactiveBeaconRegion({uuid: "D0D3FA86-CA76-45EC-9BD9-6AF4CECCAF51", identifier: "beacondemo"});
     }
 })

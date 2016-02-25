@@ -1,5 +1,9 @@
 Start = React.createClass({
 
+    startHunt(){
+        this.props.startHunt();
+    },
+
     render() {
         return (
             <div className="home-page">

@@ -5,16 +5,23 @@ Scoreboard = React.createClass({
     getMeteorData() {
         const gamesSubHandle = Meteor.subscribe("games");
         const loading = !gamesSubHandle.ready();
+        let gamesWithPercentages =  [];
 
-        let games = Games.find().fetch();
-        let gameWithHighestScore = Games.find().sort({score:-1}).limit(1);
+
+        if(!loading) {
+            let games = Games.find().fetch();
+            let gameWithHighestScore = Games.find({}, {sort: {score: -1}}).fetch()[0];
+            gamesWithPercentages = this.getGamesWithPercentages(games, gameWithHighestScore.score);
+        }
+        //let gameWithHighestScore = Games.find().sort({score:-1}).limit(1);
         return {
-            games: this.gamesWithPercentages(games, gameWithHighestScore),
+            games: gamesWithPercentages,
             loading: loading
         };
     },
-    gamesWithPercentages(games, gamesWithPercentages) {
-        let divider = gameWithHighestScore / 100;
+    getGamesWithPercentages(games, highestScore) {
+        let divider = highestScore / 100;
+        let gamesWithPercentages = [];
 
         for (let game of games) {
             gamesWithPercentages.push({
@@ -27,8 +34,22 @@ Scoreboard = React.createClass({
     },
     renderScoreboard() {
         return this.data.games.map((game) => {
-            return <div>{name} - {score}</div>;
+            return <div> {game.name} {game.score} </div>
         });
+
+        /*
+        unction(game){
+           //console.log(game.name + " " + game.score);
+            //return "<div>" + game.name + " - " + game.score + "</div>";
+        });*/
+
+
+
+
+            /*(game) => {
+            console.log(game);
+            return <div>name</div>;
+        });*/
     },
     render() {
         const loading = this.data.loading;

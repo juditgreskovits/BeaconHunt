@@ -1,4 +1,12 @@
 Hunt = React.createClass({
+  mixins: [ReactMeteorData],
+
+  getMeteorData() {
+    return {
+      questions: Meteor.call('getQuestions')
+
+    }
+  },
 
   getInitialState() {
     return {
@@ -8,12 +16,41 @@ Hunt = React.createClass({
       answer: "",
       timerStarted: Tools.getUnixTimestamp(),
       timerEnded: false,
-      timeLeft:   3*60*1000,
+      timeLeft:   60*1000,
       timerTotal: false,
       allUnlocked:      false,
-      points: 0
+      points: 0,
+      questionNumber: 0
     }
   },
+
+  mixins: [ReactMeteorData],
+
+  getMeteorData() {
+
+    let questionsSub = Meteor.subscribe('questions');
+
+    return {
+      questionsReady:   questionsSub.ready(),
+      questions:        Questions.find().fetch()
+    }
+  },
+
+  increaseQuestionNumber() {
+    this.setState( { questionNumber: this.state.questionNumber } );
+  },
+
+  shuffleArray(a) {
+    var j, x, i;
+    for (i = a.length; i; i -= 1) {
+        j = Math.floor(Math.random() * i);
+        x = a[i - 1];
+        a[i - 1] = a[j];
+        a[j] = x;
+    }
+    return a;
+  },
+
 
   componentDidMount() {
     // counts down the time - every 1 second decreases value of timeLeft
@@ -32,7 +69,17 @@ Hunt = React.createClass({
     // Logic what happens when user answers
   },
 
-  indicatorColor( proximity)  {
+  resetTimer() {
+    this.setState( { timeLeft: 60*1000 } );
+  },
+
+  deductSecond() {
+    if ( this.state.timeLeft > 0 ) {
+      this.setState( { timeLeft: this.state.timeLeft - 1000 } );
+    }
+  },
+
+  indicatorColor( proximity )  {
     if ( proximity === 5 ) {
       return '#bfff00';
     } else if ( proximity === 4 ) {
@@ -46,22 +93,32 @@ Hunt = React.createClass({
     }
   },
 
+  renderPuzzles() {
+    return (
+      <Puzzles
+        questions={ this.shuffleArray(this.data.questions) }
+        timeLeft={ this.state.timeLeft }
+        deductSecond={ this.deductSecond }
+        resetTimer={ this.resetTimer }
+        increaseQuestionNumber={ this.increaseQuestionNumber }
+        questionNumber={ this.state.questionNumber}
+      />
+    )
+  },
+
   render() {
-    let lockClass1 = this.state.locked1 ? "fa fa-lock" : "fa fa-unlock",
-        lockClass2 = this.state.locked2 ? "fa fa-lock" : "fa fa-unlock",
-        lockClass3 = this.state.locked3 ? "fa fa-lock" : "fa fa-unlock";
+    let lockClasses = [
+      this.state.locked1 ? "fa fa-lock" : "fa fa-unlock",
+      this.state.locked2 ? "fa fa-lock" : "fa fa-unlock",
+      this.state.locked3 ? "fa fa-lock" : "fa fa-unlock",
+    ]
 
-    let indicator1Style = {
-      background: this.indicatorColor( this.props.beacons[0].proximity )
-    }
-
-    let indicator2Style = {
-      background: this.indicatorColor( this.props.beacons[1].proximity )
-    }
-
-    let indicator3Style = {
-      background: this.indicatorColor( this.props.beacons[2].proximity )
-    }
+    // replace numbers with this.props.beacons[0].proximity
+    let indicatorsStyles = [
+      { background: this.indicatorColor( this.props.beacons[0].proximity ) },
+      { background: this.indicatorColor( this.props.beacons[1].proximity ) },
+      { background: this.indicatorColor( this.props.beacons[2].proximity ) }
+    ]
 
     return (
       <div>
@@ -69,31 +126,30 @@ Hunt = React.createClass({
         <div className="container hunt">
           { this.state.allUnlocked ?
             <Winner points={ this.state.points }/>
-          : 
+          :
             <div className="hunt-wrapper">
 
               <div className="row indicators">
                 <div className="col-xs-12">
 
-                  <ul>
-                    <li className="indicator-1 indicator" style={indicator1Style}><i className={lockClass1}></i></li>
-                    <li className="indicator-2 indicator" style={indicator2Style}><i className={lockClass2}></i></li>
-                    <li className="indicator-3 indicator" style={indicator3Style}><i className={lockClass3}></i></li>
-                  </ul>
+                  <Indicators
+                    indicatorStyles={ indicatorsStyles }
+                    lockClasses={lockClasses}
+                  />
 
-                  <h2>{this.state.timeLeft/1000} seconds</h2>
                 </div>
+
               </div>
 
-              { ( this.props.beacons[0].proximity < 0.1 && this.state.locked1 ) ||
+              { this.data.questionsReady && ( this.state.locked1 ) ||
                 ( this.props.beacons[1].proximity < 0.1 && this.state.locked2 && !this.state.locked1 ) ||
                 ( this.props.beacons[2].proximity < 0.1 && this.state.locked3 && !this.state.locked1 && !this.state.locked2 ) ?
 
-                <Puzzles />
+                this.renderPuzzles()
               :
                 ""
               }
-              
+
             </div>
           }
         </div>

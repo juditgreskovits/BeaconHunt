@@ -11,7 +11,7 @@ FlowRouter.route('/',{
   name: 'Start',
   action(params) {
     ReactLayout.render(App, {
-      content:  <Start />
+      content:  <Start/>
     });
   }
 });

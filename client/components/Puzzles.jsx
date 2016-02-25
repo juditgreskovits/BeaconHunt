@@ -5,18 +5,28 @@ Puzzles = React.createClass({
   //        resetTimer
   //        questions array
 
+  getInitialState() {
+    return {
+      questionsTried:    0,
+    }
+  },
+
   componentDidMount() {
     this.props.resetTimer(); 
     // setInterval( this.props.deductSecond, 1000 );
   },
 
+  increaseQuestionsTried() {
+    this.setState( { questionsTried: this.state.questionsTried + 1 } );
+  },
+
   renderQuestions() {
-    console.log(this.props.questions);
+    let question = this.props.questions[this.props.questionNumber].question;
     return (
       <div className="row questions">
         <div className="col-xs-12">
-          <h1>Question - <span>Time Left: { this.props.timeLeft/1000 } seconds </span></h1>
-          <p>Bla bla bla?</p>
+          <h1>Question {this.state.questionsTried + 1} - <span>Time Left: { this.props.timeLeft/1000 } seconds </span></h1>
+          <p>{question}</p>
         </div>
       </div>
     )

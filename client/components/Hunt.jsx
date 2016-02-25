@@ -11,7 +11,8 @@ Hunt = React.createClass({
       timeLeft:   60*1000,
       timerTotal: false,
       allUnlocked:      false,
-      points: 0
+      points: 0,
+      questionNumber: 0
     }
   },
 
@@ -25,6 +26,10 @@ Hunt = React.createClass({
       questionsReady:   questionsSub.ready(),
       questions:        Questions.find().fetch()
     }
+  },
+
+  increaseQuestionNumber() {
+    this.setState( { questionNumber: this.state.questionNumber } );
   },
 
   shuffleArray(a) {
@@ -70,13 +75,14 @@ Hunt = React.createClass({
   },
 
   renderPuzzles() {
-    console.log(this.data.questions);
     return (
       <Puzzles 
         questions={ this.shuffleArray(this.data.questions) } 
         timeLeft={ this.state.timeLeft } 
         deductSecond={ this.deductSecond } 
         resetTimer={ this.resetTimer }
+        increaseQuestionNumber={ this.increaseQuestionNumber }
+        questionNumber={ this.state.questionNumber}
       />
     )
   },

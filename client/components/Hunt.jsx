@@ -94,6 +94,7 @@ Hunt = React.createClass({
       this.state.locked3 ? "fa fa-lock" : "fa fa-unlock",   
     ]
 
+    // replace numbers with this.props.beacons[0].proximity
     let indicatorsStyles = [
       { background: this.indicatorColor( this.props.beacons[0].proximity ) },
       { background: this.indicatorColor( this.props.beacons[1].proximity ) },

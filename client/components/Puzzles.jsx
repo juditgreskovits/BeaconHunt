@@ -26,7 +26,7 @@ Puzzles = React.createClass({
       <div className="row questions">
         <div className="col-xs-12">
           <h1>Question {this.state.questionsTried + 1} - <span>Time Left: { this.props.timeLeft/1000 } seconds </span></h1>
-          <p>{question}</p>
+          <h3>{question}</h3>
         </div>
       </div>
     )

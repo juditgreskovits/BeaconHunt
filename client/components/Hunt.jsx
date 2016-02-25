@@ -20,8 +20,9 @@ Hunt = React.createClass({
       timerTotal: false,
       allUnlocked:      false,
       points: 0,
-      questionNumber: 0,
-      questionsTried: 0  // 1,2 or 3
+      questionNumber: 0,  // max 8
+      questionsTried: 0,  // 1,2 or 3
+      endOfGame: false
     }
   },
 
@@ -38,7 +39,11 @@ Hunt = React.createClass({
   },
 
   increaseQuestionNumber() {
-    this.setState( { questionNumber: this.state.questionNumber + 1 } );
+    if (this.state.questionNumber < 8) {
+      this.setState( { questionNumber: this.state.questionNumber + 1 } );
+    } else {
+      this.setState( { endOfGame: true } );
+    }
   },
 
   shuffleArray(a) {
@@ -90,7 +95,6 @@ Hunt = React.createClass({
 
   checkAnswer(correct) {
 
-
     this.increaseQuestionNumber();
     this.resetTimer();
 
@@ -130,7 +134,7 @@ Hunt = React.createClass({
     }
   },
 
-  render() {
+  renderHunt() {
     let lockClasses = [
       this.state.locked1 ? "fa fa-lock" : "fa fa-unlock",
       this.state.locked2 ? "fa fa-lock" : "fa fa-unlock",
@@ -144,32 +148,42 @@ Hunt = React.createClass({
       { background: this.indicatorColor( this.props.beacons[2].proximity ) }
     ]
 
-    return (
-      <div>
+    if ( !this.state.endOfGame ) {
+      return (
+        <div className="hunt-wrapper">
 
-        <div className="container hunt">
-          { this.state.allUnlocked ?
-            <Winner points={ this.state.points }/>
-          :
-            <div className="hunt-wrapper">
+          <div className="row indicators">
+            <div className="col-xs-12">
 
-              <div className="row indicators">
-                <div className="col-xs-12">
-
-                  <Indicators
-                    indicatorStyles={ indicatorsStyles }
-                    lockClasses={lockClasses}
-                  />
-
-                </div>
-
-              </div>
-
-              {this.renderQuestion()}
+              <Indicators
+                indicatorStyles={ indicatorsStyles }
+                lockClasses={lockClasses}
+              />
 
             </div>
-          }
+
+          </div>
+
+          {this.renderQuestion()}
+
         </div>
+      )
+    } 
+    else {
+      return <Loser />
+    }
+
+  },
+
+  render() {
+
+    return (
+      <div className="container hunt">
+        { this.state.allUnlocked ?
+          <Winner points={ this.state.points }/>
+        : 
+          this.renderHunt()
+        }
       </div>
     )
   }

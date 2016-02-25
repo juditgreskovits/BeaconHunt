@@ -1,11 +1,11 @@
 Puzzles = React.createClass({
 
   renderQuestion(question) {
-    
+
     return (
       <div className="row questions">
         <div className="col-xs-12">
-          <h1>Question { this.props.questionsTried + 1 }</h1>
+          <h1>Question { this.props.questionsTried + 1 } <span className="questions-tried">({ this.props.questionsTried + 1 } of 3)</span></h1>
           <h3>{question.question}</h3>
         </div>
       </div>

@@ -66,6 +66,35 @@ Meteor.startup(function () {
     });
   }
 
+  if(Games.find().count() === 0) {
+    var games =[
+      {
+        score: 100,
+        name: "Matthew"
+      },
+      {
+        score: 40,
+        name: "Simon"
+      },
+      {
+        score: 50,
+        name: "Judas"
+      },
+      {
+        score: 90,
+        name: "Andrew"
+      },
+      {
+        score: 20,
+        name: "Bartholomew"
+      }
+    ];
+
+    _.each(games, function (game) {
+      Games.insert(game);
+    });
+  }
+
   if(Questions.find().count() === 0) {
     var qa = [
       {

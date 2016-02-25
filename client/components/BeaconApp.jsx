@@ -115,13 +115,13 @@ BeaconApp = React.createClass({
     const loading = this.data.loading;
 
     if(loading) {
-        return <p>Loading...</p>
+      return <p>Loading...</p>
     }
 
-    const beacons = this.data.beacons;
+    const beacons = this.data.games;
 
     return (
-      <Hunt beacons={beacons} />
+        <Hunt beacons={beacons} />
     );
   }
 });

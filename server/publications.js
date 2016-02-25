@@ -26,4 +26,3 @@ Meteor.publish('questions', function(){
 Meteor.publish('games', function(){
   return Games.find({});
 });
-

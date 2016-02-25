@@ -14,8 +14,8 @@ App = React.createClass({
         },
 
         startHunt() {
-            Meteor.call('createGame','testUser', (error, result) => {
-                this.setState({gameId :result });
+            Meteor.call('createGame', (error, result) => {
+                this.setState({gameId : result});
                 console.log(result);
                 //FlowRouter.go('Hunt');
             });

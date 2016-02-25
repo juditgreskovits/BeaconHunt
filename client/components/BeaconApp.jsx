@@ -120,7 +120,7 @@ BeaconApp = React.createClass({
     }
 
     return (
-      <Hunt beacons={beacons} />
+        <Hunt beacons={beacons} />
     );
   }
 });

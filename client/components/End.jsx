@@ -7,6 +7,7 @@ End = React.createClass({
           <img src="/images/winner.png"/>
           <h2>Points: {this.props.points}</h2>
           <h1>You Won!</h1>
+            <Scoreboard />
         </div>
       </div>
     )

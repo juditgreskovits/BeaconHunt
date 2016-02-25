@@ -42,3 +42,12 @@ FlowRouter.route('/end',{
     });
   }
 });
+
+FlowRouter.route('/scoreboard',{
+  name: 'Scoreboard',
+  action(params) {
+    ReactLayout.render(App, {
+      content:  <Scoreboard />
+    });
+  }
+});

@@ -1,6 +1,6 @@
 var gameId;
 Meteor.startup(function(){
-
+  
   Meteor.call('createGame', (error, result) => {
     gameId = result;
   });

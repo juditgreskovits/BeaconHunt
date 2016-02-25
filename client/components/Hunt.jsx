@@ -16,11 +16,12 @@ Hunt = React.createClass({
       answer: "",
       timerStarted: Tools.getUnixTimestamp(),
       timerEnded: false,
-      timeLeft:   60*1000,
+      timeLeft:   10*1000,
       timerTotal: false,
       allUnlocked:      false,
       points: 0,
-      questionNumber: 0
+      questionNumber: 0,
+      questionsTried: 0  // 1,2 or 3
     }
   },
 
@@ -37,7 +38,7 @@ Hunt = React.createClass({
   },
 
   increaseQuestionNumber() {
-    this.setState( { questionNumber: this.state.questionNumber } );
+    this.setState( { questionNumber: this.state.questionNumber + 1 } );
   },
 
   shuffleArray(a) {
@@ -51,26 +52,20 @@ Hunt = React.createClass({
     return a;
   },
 
-
   componentDidMount() {
     // counts down the time - every 1 second decreases value of timeLeft
-    console.log(this.props);
+    this.setState({questions : this.shuffleArray(this.data.questions)});
     setInterval( () => {
       if ( this.state.timeLeft > 0 ) {
         this.setState( { timeLeft: this.state.timeLeft - 1000 } );
+      } else {
+        this.checkAnswer(false);
       }
     }, 1000);
   },
 
-  submitAnswer(e) {
-    e.preventDefault();
-    this.setState({ answer: this.refs.answer })
-
-    // Logic what happens when user answers
-  },
-
   resetTimer() {
-    this.setState( { timeLeft: 60*1000 } );
+    this.setState( { timeLeft: 10*1000 } );
   },
 
   deductSecond() {
@@ -93,17 +88,46 @@ Hunt = React.createClass({
     }
   },
 
-  renderPuzzles() {
-    return (
-      <Puzzles
-        questions={ this.shuffleArray(this.data.questions) }
-        timeLeft={ this.state.timeLeft }
-        deductSecond={ this.deductSecond }
-        resetTimer={ this.resetTimer }
-        increaseQuestionNumber={ this.increaseQuestionNumber }
-        questionNumber={ this.state.questionNumber}
-      />
-    )
+  checkAnswer(correct) {
+
+
+    this.increaseQuestionNumber();
+    this.resetTimer();
+
+    if (correct){
+      const score = 5 - this.state.questionsTried;
+      Meteor.call('updateScore', this.props.gameId, score, (error, result) => {
+        console.log('error = ' + error + ' result = ' + result);
+      });
+      this.setState({ questionsTried: 0 });
+     } 
+    else {
+      const questionsTried = this.state.questionsTried;
+      const nextQuestionsTried = questionsTried === 2 ? 0 : questionsTried + 1
+      this.setState({ questionsTried: nextQuestionsTried });
+    }
+  },
+
+  renderQuestion() {
+    const doRender =  this.data.questionsReady && ( this.state.locked1 ) ||
+    ( this.props.beacons[1].proximity < 0.1 && this.state.locked2 && !this.state.locked1 ) ||
+    ( this.props.beacons[2].proximity < 0.1 && this.state.locked3 && !this.state.locked1 && !this.state.locked2 );
+
+    if(doRender) {
+      return (
+        <div>
+          <span>Time Left: { this.state.timeLeft/1000 } seconds </span>
+          <Puzzles
+            question={ this.state.questions[this.state.questionNumber] }
+            checkAnswer={ this.checkAnswer } 
+            questionsTried={ this.state.questionsTried }
+          />
+        </div>
+      )
+    }
+    else {
+      return "";
+    }
   },
 
   render() {
@@ -113,6 +137,7 @@ Hunt = React.createClass({
       this.state.locked3 ? "fa fa-lock" : "fa fa-unlock",
     ]
 
+    // replace numbers with this.props.beacons[0].proximity
     let indicatorsStyles = [
       { background: this.indicatorColor( this.props.beacons[0].proximity ) },
       { background: this.indicatorColor( this.props.beacons[1].proximity ) },
@@ -140,14 +165,7 @@ Hunt = React.createClass({
 
               </div>
 
-              { this.data.questionsReady && ( this.state.locked1 ) ||
-                ( this.props.beacons[1].proximity < 0.1 && this.state.locked2 && !this.state.locked1 ) ||
-                ( this.props.beacons[2].proximity < 0.1 && this.state.locked3 && !this.state.locked1 && !this.state.locked2 ) ?
-
-                this.renderPuzzles()
-              :
-                ""
-              }
+              {this.renderQuestion()}
 
             </div>
           }

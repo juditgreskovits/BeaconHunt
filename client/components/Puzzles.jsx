@@ -1,50 +1,48 @@
 Puzzles = React.createClass({
 
-  // props: timeLeft
-  //        deductSecond
-  //        resetTimer
-  //        questions array
-
-  getInitialState() {
-    return {
-      questionsTried:    0,
-    }
-  },
-
-  componentDidMount() {
-    this.props.resetTimer(); 
-    // setInterval( this.props.deductSecond, 1000 );
-  },
-
-  increaseQuestionsTried() {
-    this.setState( { questionsTried: this.state.questionsTried + 1 } );
-  },
-
-  renderQuestions() {
-    let question = this.props.questions[this.props.questionNumber].question;
+  renderQuestion(question) {
+    
     return (
       <div className="row questions">
         <div className="col-xs-12">
-          <h1>Question {this.state.questionsTried + 1} - <span>Time Left: { this.props.timeLeft/1000 } seconds </span></h1>
-          <p>{question}</p>
+          <h1>Question { this.props.questionsTried + 1 }</h1>
+          <h3>{question.question}</h3>
         </div>
       </div>
     )
   },
 
+  checkAnswer(correct) {
+    this.props.checkAnswer(correct);
+  },
+
   render() {
+    const question = this.props.question;
+
     return (
       <div className="row puzzles">
         <div className="col-xs-12">
 
-          { this.renderQuestions() }
+          { this.renderQuestion(question) }
 
           <div className="row answers">
             <div className="col-xs-12">
               <h1>Answers</h1>
-                <AnswerButton />
-                <AnswerButton />
-                <AnswerButton />
+                <AnswerButton 
+                  option={question.options[0] } 
+                  letter={'A'}
+                  checkAnswer={this.checkAnswer}
+                />
+                <AnswerButton 
+                  option={ question.options[1] }
+                  letter={'B'}
+                  checkAnswer={this.checkAnswer}
+                />
+                <AnswerButton 
+                  option={ question.options[2] } 
+                  letter={'C'}
+                  checkAnswer={this.checkAnswer}
+                />
             </div>
           </div>
 

@@ -1,10 +1,7 @@
 AnswerButton = React.createClass({
+
   checkAnswer() {
-    if ( this.props.answer === this.props.correctAnswer ) {
-      this.props.correctAnswer()
-    } else {
-      this.props.incorrectAnswer()
-    }
+
   },
 
   render() {

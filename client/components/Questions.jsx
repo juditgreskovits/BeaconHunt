@@ -1,4 +1,4 @@
-Questions = React.createClass({
+QuestionsOld = React.createClass({
 
   renderBeacons() {
 

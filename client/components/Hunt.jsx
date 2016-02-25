@@ -15,6 +15,29 @@ Hunt = React.createClass({
     }
   },
 
+  mixins: [ReactMeteorData],
+
+  getMeteorData() {
+
+    let questionsSub = Meteor.subscribe('questions');
+
+    return {
+      questionsReady:   questionsSub.ready(),
+      questions:        Questions.find().fetch()
+    }
+  },
+
+  shuffleArray(a) {
+    var j, x, i;
+    for (i = a.length; i; i -= 1) {
+        j = Math.floor(Math.random() * i);
+        x = a[i - 1];
+        a[i - 1] = a[j];
+        a[j] = x;
+    }
+    return a;
+  },
+
   submitAnswer(e) {
     e.preventDefault();
     this.setState({ answer: this.refs.answer })
@@ -32,7 +55,7 @@ Hunt = React.createClass({
     }
   },
 
-  indicatorColor( proximity)  {
+  indicatorColor( proximity )  {
     if ( proximity === 5 ) {
       return '#bfff00';
     } else if ( proximity === 4 ) {
@@ -44,6 +67,18 @@ Hunt = React.createClass({
     } else if ( proximity === 1 ) {
       return '#ff4000';
     }
+  },
+
+  renderPuzzles() {
+    console.log(this.data.questions);
+    return (
+      <Puzzles 
+        questions={ this.shuffleArray(this.data.questions) } 
+        timeLeft={ this.state.timeLeft } 
+        deductSecond={ this.deductSecond } 
+        resetTimer={ this.resetTimer }
+      />
+    )
   },
 
   render() {
@@ -80,11 +115,11 @@ Hunt = React.createClass({
 
               </div>
 
-              { ( this.props.beacons[0].proximity < 0.1 && this.state.locked1 ) ||
+              { this.data.questionsReady && ( this.state.locked1 ) ||
                 ( this.props.beacons[1].proximity < 0.1 && this.state.locked2 && !this.state.locked1 ) ||
                 ( this.props.beacons[2].proximity < 0.1 && this.state.locked3 && !this.state.locked1 && !this.state.locked2 ) ?
 
-                <Puzzles timeLeft={ this.state.timeLeft } deductSecond={ this.deductSecond } resetTimer={ this.resetTimer }/>
+                this.renderPuzzles()
               :
                 ""
               }

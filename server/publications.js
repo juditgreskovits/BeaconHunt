@@ -22,3 +22,5 @@ Meteor.publish('fakebeacons', function() {
 Meteor.publish('questions', function(){
   return Questions.find({});
 });
+
+

@@ -1,26 +1,34 @@
-//var reactiveBeaconRegion;
-Meteor.startup(function(){
-
-
-
-  /*if (Meteor.isCordova) {
-    reactiveBeaconRegion = new ReactiveBeaconRegion({uuid: "b9407f30-f5f8-466e-aff9-25556b57fe6d", identifier: "beaconhunt"});
-  }*/
-});
+var gameId;
+/*Meteor.startup(function(){
+  
+  Meteor.call('createGame', (error, result) => {
+    gameId = result;
+  });
+});*/
 
 App = React.createClass({
-    startHunt() {
-        Meteor.call('createGame','testUser', (error, result) => {
-            const gameId = result;
-        });
-        FlowRouter.go('Hunt');
-    },
+
+        startHunt() {
+            Meteor.call('createGame','testUser', (error, result) => {
+                const gameId = result;
+            });
+            FlowRouter.go('Hunt');
+        },
+
+  getPropsWithChildren () {
+
+    var childrenWithProps = React.Children.map(this.props.content, (child) => {
+        return React.cloneElement(child, { gameId : gameId});
+    });
+    return childrenWithProps;
+  },
+
   render() {
 
     return (
       <div>
         <Header />
-        { this.props.content }
+        { this.getPropsWithChildren() }
       </div>
     )
   }

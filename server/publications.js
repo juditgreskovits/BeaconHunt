@@ -1,10 +1,10 @@
 Beacons.publicFields = {
 
-}
+};
 
 FakeBeacons.publicFields = {
 
-}
+};
 
 // function instead of () => to keep the this context. Eg. this.userId
 Meteor.publish('beacons', function() {
@@ -23,4 +23,7 @@ Meteor.publish('questions', function(){
   return Questions.find({});
 });
 
+Meteor.publish('games', function(){
+  return Games.find({});
+});
 

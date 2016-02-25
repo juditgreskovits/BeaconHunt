@@ -27,7 +27,7 @@ Puzzles = React.createClass({
 
           <div className="row answers">
             <div className="col-xs-12">
-              <h1>Answers</h1>
+              <h3>Answers</h3>
                 <AnswerButton
                   option={question.options[0] }
                   letter={'A'}

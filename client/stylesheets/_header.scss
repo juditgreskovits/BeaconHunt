@@ -38,17 +38,17 @@ nav#menu {
 }
 
 .label-name {
-  font-size: 1em;
+  font-size: 1.5em;
   padding-left: 10px;
   font-weight: 300;
   color: #777;
   padding-left: 10px;
+  line-height: 5rem;
 }
 
 .input-name {
   font-weight: 300;
   color: #777;
-  width: 97px !important;
   margin-left: 7px !important;
   font-size: 1em !important;
   height: 2.5em !important;
@@ -57,10 +57,15 @@ nav#menu {
 .separator {
   color: #777;
   font-size: 2em;
+  padding-left: 10px;
 }
 
 .floatLeft {
   float: left;
+}
+
+.floatRight {
+  float: right;
 }
 
 .userItem {
@@ -74,5 +79,5 @@ nav#menu {
 }
 
 .score {
-  padding-left: 15px;
+  padding-left: 30px;
 }

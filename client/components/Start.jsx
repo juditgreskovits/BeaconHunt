@@ -19,7 +19,7 @@ Start = React.createClass({
                             máxima categoría. La campaña 1959-60 finalizó con un nuevo descenso.
                         </p>
 
-                        <button type="submit" className="btn btn-hunt" onClick={this.startHunt}>Hunt!</button>
+                        <button type="submit" className="btn btn-hunt" onClick={this.startHunt}>Hunt</button>
 
                     </div>
 

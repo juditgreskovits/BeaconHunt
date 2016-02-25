@@ -1,3 +1,11 @@
+var reactiveBeaconRegion;
+
+Meteor.startup(function(){
+    if (Meteor.isCordova) {
+        reactiveBeaconRegion = new ReactiveBeaconRegion({uuid: "D0D3FA86-CA76-45EC-9BD9-6AF4CECCAF51", identifier: "beacondemo"});
+    }
+})
+
 BeaconApp = React.createClass({
 
   mixins: [ReactMeteorData],
@@ -6,7 +14,7 @@ BeaconApp = React.createClass({
 
     const beaconsSubHandle = Meteor.subscribe('beacons');
     const questionsSubHandle = Meteor.subscribe('questions');
-    const loading = !beaconsSubHandle.ready(); // || !questionsSubHandle.ready();
+    var loading = !beaconsSubHandle.ready(); // || !questionsSubHandle.ready();
 
     let beaconsDetected;
     let beacons;
@@ -19,16 +27,21 @@ BeaconApp = React.createClass({
       }
     }
     else {
-      const fakeBeaconSubHandle = Meteor.subscribe('fakebeacons');
-      const loading = loading && !fakeBeaconSubHandle.ready();
-
-      beaconsDetected = FakeBeacons.findOne({});
+      const fakeBeaconsSubHandle = Meteor.subscribe('fakebeacons');
+      loading = loading && !fakeBeaconsSubHandle.ready();
+      console.log('!fakeBeaconsSubHandle.ready() = ' + !fakeBeaconsSubHandle.ready() + ' loading = ' + loading);
+      if(fakeBeaconsSubHandle.ready()) {
+        beaconsDetected = FakeBeacons.findOne({}).beacons;
+        console.log('FakeBeacons.findOne({}) = ' + FakeBeacons.findOne({}));
+      }
     }
 
     if(beaconsDetected && !loading) {
       beacons = this.getBeacons(beaconsDetected);
       console.log('beacons = ', beacons);
     }
+
+    console.log('loading = ' + loading);
 
     return {
       beacons: beacons,
@@ -65,10 +78,10 @@ BeaconApp = React.createClass({
 
   getBeacons(beaconsDetected) {
     let beaconIndices = [1, 2, 3];
-    beacons = beaconsDetected.beacons.map((beacon) => {
+    beacons = beaconsDetected.map((beacon) => {
       const beaconData = Beacons.findOne({ major: beacon.major, minor: beacon.minor });
-      const proximity = this.getProximity(beaconData.beaconIndex, beacon.proximity);
       const beaconIndex = beaconData.beaconIndex;
+      const proximity = this.getProximity(beaconIndex, beacon.proximity);
       this.removeFromArrayByValue(beaconIndices, beaconIndex);
       return {
         proximity: proximity,
@@ -76,7 +89,7 @@ BeaconApp = React.createClass({
         uuid: beacon.uuid,
         major: beacon.major,
         minor: beacon.minor,
-        beaconIndex: beaconData.beaconIndex,
+        beaconIndex: beaconIndex,
         beaconColour: beaconData.beaconColour
       }
     });
@@ -97,28 +110,14 @@ BeaconApp = React.createClass({
     return beacons;
   },
 
-  /*renderBeacons() {
-
-    const loading = this.data.loading;
-
-    if(loading) {
-      return <p>Loading...</p>
-    }
-
-    return this.data.beacons.map((beacon) => {
-      return <Beacon key={beacon.uuid + beacon.major + beacon.minor} beacon={beacon} />;
-    });
-  },*/
-
   render() {
 
     const loading = this.data.loading;
+    const beacons = this.data.beacons;
 
-    if(loading) {
+    if(loading || !beacons) {
         return <p>Loading...</p>
     }
-
-    const beacons = this.data.beacons;
 
     return (
       <Hunt beacons={beacons} />

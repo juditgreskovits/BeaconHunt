@@ -67,7 +67,7 @@ Meteor.startup(function () {
   }
 
   if(Questions.find().count() === 0) {
-    var qa = [
+    var qas = [
       {
         question: "How many large islands is in Canary Islands?",
         options: [
@@ -222,6 +222,10 @@ Meteor.startup(function () {
         ]
       }
     ];
+
+    _.each(qas, function (qa) {
+      Questions.insert(qa);
+    });
   }
 
 

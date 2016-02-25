@@ -2,7 +2,11 @@ QuestionsOld = React.createClass({
 
   renderBeacons() {
 
-    return this.props.beacons.map((beacon) => {
+    if(!this.props.beacons) {
+      return <p>Meow</p>
+    }
+
+    return this.props.beacons.beacons.map((beacon) => {
       return <Beacon key={beacon.uuid + beacon.major + beacon.minor} beacon={beacon} />;
     });
   },

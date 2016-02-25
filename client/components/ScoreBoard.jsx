@@ -36,20 +36,6 @@ Scoreboard = React.createClass({
         return this.data.games.map((game) => {
             return <div> {game.name} {game.score} </div>
         });
-
-        /*
-        unction(game){
-           //console.log(game.name + " " + game.score);
-            //return "<div>" + game.name + " - " + game.score + "</div>";
-        });*/
-
-
-
-
-            /*(game) => {
-            console.log(game);
-            return <div>name</div>;
-        });*/
     },
     render() {
         const loading = this.data.loading;

@@ -9,7 +9,12 @@ Meteor.startup(function(){
 });
 
 App = React.createClass({
-
+    startHunt() {
+        Meteor.call('createGame','testUser', (error, result) => {
+            const gameId = result;
+        });
+        FlowRouter.go('Hunt');
+    },
   render() {
 
     return (

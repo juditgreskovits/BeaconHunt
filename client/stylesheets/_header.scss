@@ -32,3 +32,26 @@ nav#menu {
 .navbar {
   margin-bottom: 0;
 }
+
+.navbar-brand {
+  padding-right: 10px;
+}
+
+.label-name {
+  font-size: 1em;
+  padding-left: 10px;
+  font-weight: 300;
+  color: #777;
+}
+
+.input-name {
+  font-weight: 300;
+  color: #777;
+  width: 97px !important;
+  margin-left: 7px !important;
+}
+
+.separator {
+  color: #777;
+  font-size: 2em;
+}

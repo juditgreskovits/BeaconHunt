@@ -145,6 +145,8 @@ Hunt = React.createClass({
 
     const beaconsAnswered = this.state.beaconsAnswered;
     if(beaconsAnswered[0] === true && beaconsAnswered[1] === true && beaconsAnswered[2] === true) {
+      this.setState({ "timerEnded" : Tools.getUnixTimestamp() });
+      this.setState({ "timerTotal" : (this.props.timerEnd - this.props.timerStarted)})
       FlowRouter.go('End');
     }
   },

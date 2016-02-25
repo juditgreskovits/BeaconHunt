@@ -118,12 +118,14 @@ Hunt = React.createClass({
 
     if (correct){
       const score = 5 - this.state.questionsTried;
+      console.log('score = ' + score);
       Meteor.call('updateScore', this.props.gameId, score, (error, result) => {
         console.log('error = ' + error + ' result = ' + result);
       });
 
       this.increaseBeaconsAnswered();
       this.setState({ questionsTried: 0 });
+      this.componentWillReceiveProps(this.props);
      }
     else {
       const questionsTried = this.state.questionsTried;
@@ -146,10 +148,10 @@ Hunt = React.createClass({
 
     const beaconIndex = this.state.beaconIndex;
 
-    console.log('this.state.beaconsAnswered = ' + this.state.beaconsAnswered);
+    // console.log('this.state.beaconsAnswered = ' + this.state.beaconsAnswered);
     // console.log('renderQuestion beaconIndex = ' + beaconIndex + ' this.state.beaconsAnswered[beaconIndex-1] = ' + this.state.beaconsAnswered[beaconIndex-1]);
     const doRender = !this.data.loading && beaconIndex > 0 && !this.state.beaconsAnswered[beaconIndex-1];
-    console.log('this.data.questions = ' + this.data.questions);
+    // console.log('this.data.questions = ' + this.data.questions);
     if(doRender) {
       return (
         <div>
@@ -184,7 +186,6 @@ Hunt = React.createClass({
       i++;
     }
 
-    if ( !this.state.endOfGame ) {
       return (
         <div className="hunt-wrapper">
 
@@ -204,10 +205,6 @@ Hunt = React.createClass({
 
         </div>
       )
-    }
-    else {
-      return <Loser />
-    }
 
   },
 

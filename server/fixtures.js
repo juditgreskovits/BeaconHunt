@@ -166,7 +166,7 @@ Meteor.startup(function () {
         ]
       },
       {
-        question: "Gran Canaria's surface area is in km&sup2;?",
+        question: "Gran Canaria's surface area is in km²?",
         options: [
           {
             correct: true,
@@ -247,6 +247,108 @@ Meteor.startup(function () {
           {
             correct: false,
             answer: 180
+          }
+        ]
+      },
+      {
+        question: "The capital city of Las Palmas de Gran Canaria was founded on month?",
+        options: [
+          {
+            correct: true,
+            answer: "June"
+          },
+          {
+            correct: false,
+            answer: "July"
+          },
+          {
+            correct: false,
+            answer: "May"
+          }
+        ]
+      },
+      {
+        question: "The capital city of Las Palmas de Gran Canaria was founded on day?",
+        options: [
+          {
+            correct: true,
+            answer: 24
+          },
+          {
+            correct: false,
+            answer: 28
+          },
+          {
+            correct: false,
+            answer: 21
+          }
+        ]
+      },
+      {
+        question: "How many years ago the last eruptions are held to have occurred?",
+        options: [
+          {
+            correct: true,
+            answer: 3500
+          },
+          {
+            correct: false,
+            answer: 1500
+          },
+          {
+            correct: false,
+            answer: 500
+          }
+        ]
+      },
+      {
+        question: "How many percent of the island territory is under protection from the Canary Islands Network for Protected Natural Areas?",
+        options: [
+          {
+            correct: true,
+            answer: "42.7%"
+          },
+          {
+            correct: false,
+            answer: "47.2%"
+          },
+          {
+            correct: false,
+            answer: "27.4%"
+          }
+        ]
+      },
+      {
+        question: "How many km² of the island territory is under protection from the Canary Islands Network for Protected Natural Areas?",
+        options: [
+          {
+            correct: true,
+            answer: 667
+          },
+          {
+            correct: false,
+            answer: 676
+          },
+          {
+            correct: false,
+            answer: 766
+          }
+        ]
+      },
+      {
+        question: "How many protected sites under control of network in the Canary Islands archipelago?",
+        options: [
+          {
+            correct: true,
+            answer: 146
+          },
+          {
+            correct: false,
+            answer: 164
+          },
+          {
+            correct: false,
+            answer: 416
           }
         ]
       }

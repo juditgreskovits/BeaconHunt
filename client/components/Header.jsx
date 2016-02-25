@@ -31,12 +31,14 @@ Header = React.createClass({
                 <div className="container-fluid">
                     <div className="container">
                         <div className="navbar-header">
-
-                            <label for="inputName" className="label-name">Name</label>
-                            <input id="inputName" type="text" className="input-name" onChange={this.handleChange}
-                                   value={gameName}/>
-                            <p>Name: {gameName}</p>
-                            <p>Score: {gameScore}</p>
+                            <div className="floatLeft">
+                            <a className="navbar-brand appTitle" href="/">Treasure Hunt</a>
+                            <div className="userItem label-name score">Score: {gameScore}</div>
+                            </div>
+                            <span className="separator floatLeft">|</span>
+                            <div className="userContainer floatLeft">
+                                <div className="userItem"><label for="inputName" className="label-name">Name</label><input id="inputName" type="text" className="input-name" onChange={this.handleChange} placeholder={gameName}/></div>
+                            </div>
                         </div>
                     </div>
                 </div>

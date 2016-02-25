@@ -7,7 +7,7 @@ Hunt = React.createClass({
       answer: "",
       timerStarted: Tools.getUnixTimestamp(),
       timerEnded: false,
-      timeLeft:   10*1000,
+      timeLeft:   40*1000,
       timerTotal: false,
       allUnlocked:      false,
       points: 0,
@@ -87,7 +87,7 @@ Hunt = React.createClass({
 
 
   resetTimer() {
-    this.setState( { timeLeft: 10*1000 } );
+    this.setState( { timeLeft: 40*1000 } );
   },
 
   deductSecond() {

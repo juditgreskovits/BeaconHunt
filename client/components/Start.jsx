@@ -1,10 +1,7 @@
 Start = React.createClass({
 
-    startHunt() {
-        /*Meteor.call('createGame',"testUser", (error, result) => {
-            const gameId = result;
-        });*/
-        FlowRouter.go('Hunt');
+    startHunt(){
+        this.props.startHunt();
     },
 
     render() {

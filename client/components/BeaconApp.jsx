@@ -69,7 +69,7 @@ BeaconApp = React.createClass({
         return 5;
       case 'ProximityNear':
         return 4;
-      case 'ProximitySomethingElse':
+      case 'ProximityFar':
         return 3;
       default:
         return 0;

@@ -7,7 +7,7 @@ Hunt = React.createClass({
       answer: "",
       timerStarted: Tools.getUnixTimestamp(),
       timerEnded: false,
-      timeLeft:   20*1000,
+      timeLeft:   10*1000,
       timerTotal: false,
       allUnlocked:      false,
       points: 0,
@@ -46,14 +46,16 @@ Hunt = React.createClass({
 
   componentWillReceiveProps(nextProps) {
     const beaconIndex = this.state.beaconIndex;
-    const beaconProximity = nextProps.beacons[beaconIndex].proximity;
-    const prevBeaconAnswered = beaconIndex === 0 || this.state.beaconsAnswered[beaconIndex-1];
-    console.log('Hunt.componentWillReceiveProps prevBeaconAnswered = ' + prevBeaconAnswered);
-    console.log('Hunt.componentWillReceiveProps beaconProximity = ' + beaconProximity);
-    if(prevBeaconAnswered && beaconProximity === 5) {
-      this.setState({
-        beaconIndex: beaconIndex + 1
-      });
+    if(beaconIndex <= 3) {
+      const beaconProximity = nextProps.beacons[beaconIndex].proximity;
+      const prevBeaconAnswered = beaconIndex === 0 || this.state.beaconsAnswered[beaconIndex-1];
+      console.log('Hunt.componentWillReceiveProps prevBeaconAnswered = ' + prevBeaconAnswered);
+      console.log('Hunt.componentWillReceiveProps beaconProximity = ' + beaconProximity);
+      if(prevBeaconAnswered && beaconProximity === 5) {
+        this.setState({
+          beaconIndex: beaconIndex + 1
+        });
+      }
     }
   },
 
@@ -63,17 +65,6 @@ Hunt = React.createClass({
     } else {
       this.setState( { endOfGame: true } );
     }
-  },
-
-  shuffleArray(a) {
-    var j, x, i;
-    for (i = a.length; i; i -= 1) {
-        j = Math.floor(Math.random() * i);
-        x = a[i - 1];
-        a[i - 1] = a[j];
-        a[j] = x;
-    }
-    return a;
   },
 
   componentDidMount() {
@@ -89,7 +80,7 @@ Hunt = React.createClass({
   },
 
   resetTimer() {
-    this.setState( { timeLeft: 20*1000 } );
+    this.setState( { timeLeft: 10*1000 } );
   },
 
   deductSecond() {
@@ -136,11 +127,18 @@ Hunt = React.createClass({
      }
     else {
       const questionsTried = this.state.questionsTried;
-      if(questionsTried) {
+      let nextQuestionsTried = questionsTried + 1;
+      if(questionsTried === 2) {
         this.increaseBeaconsAnswered();
+        nextQuestionsTried = 0;
+        this.componentWillReceiveProps(this.props);
       }
-      const nextQuestionsTried = questionsTried === 2 ? 0 : questionsTried + 1;
       this.setState({ questionsTried: nextQuestionsTried });
+    }
+
+    const beaconsAnswered = this.state.beaconsAnswered;
+    if(beaconsAnswered[0] === true && beaconsAnswered[1] === true && beaconsAnswered[2] === true) {
+      FlowRouter.go('End');
     }
   },
 
@@ -166,7 +164,9 @@ Hunt = React.createClass({
       )
     }
     else {
-      return "";
+      return (
+        <h2>Find beacon {this.state.beaconIndex + 1}!</h2>
+      )
     }
   },
 
@@ -217,11 +217,7 @@ Hunt = React.createClass({
 
     return (
       <div className="container hunt">
-        { this.state.allUnlocked ?
-          <Winner points={ this.state.points }/>
-        :
-          this.renderHunt()
-        }
+        {this.renderHunt()}
       </div>
     )
   }
